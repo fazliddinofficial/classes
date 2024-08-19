@@ -1,4 +1,5 @@
 class SimpleUser {
+    static #messages = [];
     constructor(name, age, number, address, email) {
         this.name = name;
         this.age = age;
@@ -6,8 +7,16 @@ class SimpleUser {
         this.address = address;
         this.email = email;
     }
+    getMessages() {
+        return SimpleUser.#messages
+    }
+
+    addMessage(message) {
+        SimpleUser.#messages.push(message);
+    }
 }
-class premiumUser extends SimpleUser {
+
+class PremiumUser extends SimpleUser {
     constructor(name, age, number, address, email) {
         super(name, age, number, address, email)
     }
@@ -15,7 +24,7 @@ class premiumUser extends SimpleUser {
         console.log('New Emojes');
     }
 }
-class adminUser extends premiumUser {
+class AdminUser extends PremiumUser {
     constructor(name, age, number, address, email) {
         super(name, age, number, address, email)
     }
@@ -23,11 +32,11 @@ class adminUser extends premiumUser {
         console.log(this);
     }
 }
-class SuperAdmin extends adminUser {
+class SuperAdmin extends AdminUser {
     constructor(name, age, number, address, email) {
         super(name, age, number, address, email)
     }
-    changeInformation(name,age,number,address,email) {
+    changeInformation(name, age, number, address, email) {
         this.name = name;
         this.age = age;
         this.number = number;
@@ -36,6 +45,9 @@ class SuperAdmin extends adminUser {
         return this;
     }
 }
-let user = new adminUser('fazliddin', 32, 234231, 'LA', '@gmail.com');
-let One = new SuperAdmin('Tom', 32, 1234567, 'LA', '@mail.com');
-console.log(One.changeInformation('ford', 32,324, 'fdas','ffdas'));
+let user = new AdminUser('fazliddin', 32, 234231, 'LA', '@gmail.com');
+let supperAdmin = new SuperAdmin('Tom', 32, 1234567, 'LA', '@mail.com');
+console.log(supperAdmin.changeInformation('ford', 32, 324, 'fdas', 'ffdas'));
+supperAdmin.addMessage('Hi my first message');
+supperAdmin.addMessage('Hi there');
+console.log(supperAdmin.getMessages(), supperAdmin);
